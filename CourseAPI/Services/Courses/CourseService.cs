@@ -45,7 +45,7 @@ namespace CourseAPI.Services.Courses {
             return toUpdate;
         }
 
-        async Task<Course> ICourseService.AddAsync(Course course, int id) {
+        public async Task<Course> AddAsync(Course course, int id) {
             var exists = await _context.Course.AnyAsync(c => c.Name.Equals(course.Name) || c.Description.Equals(course.Description));
             var teacher = await _teacherService.GetByIdAsync(id);
 
