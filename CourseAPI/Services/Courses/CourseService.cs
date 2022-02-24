@@ -36,7 +36,10 @@ namespace CourseAPI.Services.Courses {
 
         public async Task<Course> UpdateAsync(Course course) {
             var toUpdate = await _context.Course.FirstOrDefaultAsync(c => c.Id == course.Id);
-            toUpdate = course;
+            var lecturer = await _teacherService.GetByIdAsync(course.Lecturer.Id);
+            toUpdate.Name = course.Name;
+            toUpdate.Description = course.Description;
+            toUpdate.Lecturer = lecturer;
             _context.Update(toUpdate);
             await _context.SaveChangesAsync();
             return toUpdate;
@@ -56,5 +59,8 @@ namespace CourseAPI.Services.Courses {
             await _context.SaveChangesAsync();
             return added.Entity;
         }
+
+
+
     }
 }

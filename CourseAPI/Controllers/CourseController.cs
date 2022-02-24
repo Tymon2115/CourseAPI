@@ -1,6 +1,7 @@
 ﻿using CourseAPI.Services.Teachers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CourseAPI.Controllers {
     [Route("api/[controller]")]
@@ -50,6 +51,19 @@ namespace CourseAPI.Controllers {
             catch (Exception ex) {
                 return StatusCode(404, ex.Message);
             }
+
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<Course>> EditCourse([FromBody] Course course) {
+            try {
+                var edited = await _courseService.UpdateAsync(course);
+                return Ok(edited);
+            }
+            catch (Exception ex) {
+                throw new Exception(ex.Message);
+            }
+
 
         }
 
