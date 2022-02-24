@@ -32,8 +32,6 @@ namespace CourseAPI.Controllers {
         [HttpPost("Teacher/{id:int}")]
         public async Task<ActionResult<Course>> AddCourse([FromBody] Course course, [FromRoute] int id) {
 
-
-
             try {
                 var added = await _courseService.AddAsync(course, id);
                 return Ok(added);
@@ -41,6 +39,18 @@ namespace CourseAPI.Controllers {
             catch (Exception ex) {
                 return StatusCode(500, ex.Message);
             }
+        }
+
+        [HttpDelete("/{id}")]
+        public async Task<ActionResult> RemoveCourse([FromRoute] int id) {
+            try {
+                await _courseService.DeleteAsync(id);
+                return Ok($"Course succesfully deleted for id {id}");
+            }
+            catch (Exception ex) {
+                return StatusCode(404, ex.Message);
+            }
+
         }
 
     }

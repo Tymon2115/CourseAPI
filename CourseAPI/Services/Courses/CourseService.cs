@@ -19,18 +19,19 @@ namespace CourseAPI.Services.Courses {
                 await _context.SaveChangesAsync();
                 return true;
             }
-            return false;
+            else
+                throw new Exception($"Course with id {id} not found");
         }
 
         public async Task<Course> GetByIdAsync(int id) {
-            var course = await _context.Course.FirstOrDefaultAsync(c => c.Id == id);
+            var course = await _context.Course.Include(course => course.Lecturer).Include(course => course.Students).FirstOrDefaultAsync(c => c.Id == id);
             //find out what is the best way to ensure no exceptions and it should happen here
             return course;
 
         }
 
         public async Task<List<Course>> GetCoursesAsync() {
-            return await _context.Course.ToListAsync();
+            return await _context.Course.Include(course => course.Lecturer).Include(course => course.Students).ToListAsync();
         }
 
         public async Task<Course> UpdateAsync(Course course) {
