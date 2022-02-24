@@ -31,7 +31,7 @@ namespace CourseAPI.Services.Teachers {
             throw new NotImplementedException();
         }
 
-        public Task<Teacher> UpdateAsync(Teacher teacher) {
+        public Task<Teacher> UpdateAsync(int id, Teacher teacher) {
             throw new NotImplementedException();
         }
     }

@@ -5,7 +5,7 @@ namespace CourseAPI.Services.Teachers {
         Task<Teacher> GetByIdAsync(int id);
         Task<List<Teacher>> GetTeachersAsync();
         Task<bool> DeleteAsync(int id);
-        Task<Teacher> UpdateAsync(Teacher teacher);
+        Task<Teacher> UpdateAsync(int id, Teacher teacher);
         Task<Teacher> Addteacher(Teacher teacher);
 
     }

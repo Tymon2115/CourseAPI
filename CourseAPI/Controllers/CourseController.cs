@@ -21,7 +21,7 @@ namespace CourseAPI.Controllers {
             return Ok(courses);
         }
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse([FromRoute] int id) {
             var course = await _courseService.GetByIdAsync(id);
             if (course == null) {
@@ -42,7 +42,7 @@ namespace CourseAPI.Controllers {
             }
         }
 
-        [HttpDelete("/{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> RemoveCourse([FromRoute] int id) {
             try {
                 await _courseService.DeleteAsync(id);
@@ -54,10 +54,10 @@ namespace CourseAPI.Controllers {
 
         }
 
-        [HttpPut]
-        public async Task<ActionResult<Course>> EditCourse([FromBody] Course course) {
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Course>> EditCourse([FromRoute] int id, [FromBody] Course course) {
             try {
-                var edited = await _courseService.UpdateAsync(course);
+                var edited = await _courseService.UpdateAsync(id, course);
                 return Ok(edited);
             }
             catch (Exception ex) {

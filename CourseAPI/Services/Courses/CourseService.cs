@@ -34,8 +34,8 @@ namespace CourseAPI.Services.Courses {
             return await _context.Course.Include(course => course.Lecturer).Include(course => course.Students).ToListAsync();
         }
 
-        public async Task<Course> UpdateAsync(Course course) {
-            var toUpdate = await _context.Course.FirstOrDefaultAsync(c => c.Id == course.Id);
+        public async Task<Course> UpdateAsync(int id, Course course) {
+            var toUpdate = await _context.Course.FirstOrDefaultAsync(c => c.Id == id);
             var lecturer = await _teacherService.GetByIdAsync(course.Lecturer.Id);
             toUpdate.Name = course.Name;
             toUpdate.Description = course.Description;
