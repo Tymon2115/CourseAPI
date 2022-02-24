@@ -23,24 +23,23 @@ namespace CourseAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Courses",
+                name: "Course",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LecturerId = table.Column<int>(type: "int", nullable: false)
+                    LecturerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courses", x => x.Id);
+                    table.PrimaryKey("PK_Course", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Courses_Teacher_LecturerId",
+                        name: "FK_Course_Teacher_LecturerId",
                         column: x => x.LecturerId,
                         principalTable: "Teacher",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -56,15 +55,15 @@ namespace CourseAPI.Migrations
                 {
                     table.PrimaryKey("PK_Student", x => x.Cpr);
                     table.ForeignKey(
-                        name: "FK_Student_Courses_CourseId",
+                        name: "FK_Student_Course_CourseId",
                         column: x => x.CourseId,
-                        principalTable: "Courses",
+                        principalTable: "Course",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_LecturerId",
-                table: "Courses",
+                name: "IX_Course_LecturerId",
+                table: "Course",
                 column: "LecturerId");
 
             migrationBuilder.CreateIndex(
@@ -79,7 +78,7 @@ namespace CourseAPI.Migrations
                 name: "Student");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "Course");
 
             migrationBuilder.DropTable(
                 name: "Teacher");

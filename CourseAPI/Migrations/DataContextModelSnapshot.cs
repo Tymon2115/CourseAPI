@@ -34,7 +34,7 @@ namespace CourseAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LecturerId")
+                    b.Property<int?>("LecturerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -45,7 +45,7 @@ namespace CourseAPI.Migrations
 
                     b.HasIndex("LecturerId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Course");
                 });
 
             modelBuilder.Entity("CourseAPI.Models.Student", b =>
@@ -96,9 +96,7 @@ namespace CourseAPI.Migrations
                 {
                     b.HasOne("CourseAPI.Models.Teacher", "Lecturer")
                         .WithMany()
-                        .HasForeignKey("LecturerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LecturerId");
 
                     b.Navigation("Lecturer");
                 });

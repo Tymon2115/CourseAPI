@@ -1,5 +1,7 @@
 global using CourseAPI.Data;
 global using Microsoft.EntityFrameworkCore;
+global using CourseAPI.Services.Courses;
+using CourseAPI.Services.Teachers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddDbContext<DataContext>(options => {
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
 
 var app = builder.Build();
 
